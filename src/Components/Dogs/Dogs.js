@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "reactstrap";
-import DogIndex from "./DogIndex";
+// import DogIndex from "./DogIndex";
 
 const Dogs = () => {
   return (
@@ -21,7 +21,7 @@ const Dogs = () => {
         <li>Make sure to include some good practice error handling</li>
       </ul>
       <hr />
-      <DogIndex />
+      {/* <DogIndex /> */}
     </Container>
   );
 };

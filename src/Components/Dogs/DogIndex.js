@@ -2,28 +2,30 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
 
-class ClassFetchOnload extends Component {
+class DogIndex extends Component {
   constructor(props) {
     super(props);
-    this.state = { fetchDog };
+    this.state = { dogImage: "" };
   }
 
   fetchDog() {
     const url = "https://dog.ceo/api/breeds/image/random";
     fetch(url)
       .then((res) => res.json())
-      .then(console.log(json));
+      .then((json) => this.setState({ dogImage: json.message }));
   }
 
-  componentDidMount() {
-    this.fetchDog();
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.dogImage !== this.state.dogImage) {
+      this.fetchDog();
+    }
   }
 
   render() {
     return (
       <Container>
         <h3>Dog Image</h3>
-        {this.fetchDog}
+        <img src={this.dogImage} alt="" />
       </Container>
     );
   }
