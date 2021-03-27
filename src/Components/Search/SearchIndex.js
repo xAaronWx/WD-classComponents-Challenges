@@ -25,19 +25,20 @@ export default class SearchIndex extends Component {
     };
   }
 
-  searchFunction(event) {
+  state = {
+    name: "",
+  };
+
+  handleInput = (event) => {
     this.setState({ things: event.target.value });
-  }
+  };
 
   render() {
     return (
       <div>
-        <Input
-          placeholder="Search for an item"
-          value={""}
-          onChange={(event) => this.searchFunction(event)}
-        />
+        <Input placeholder="Search for an item" onChange={this.handleInput} />
         <h3>Results:</h3>
+        <div>{this.state.things}</div>
       </div>
     );
   }
