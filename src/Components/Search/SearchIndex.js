@@ -29,16 +29,20 @@ export default class SearchIndex extends Component {
     name: "",
   };
 
-  handleInput = (event) => {
+  changeHandler = (event) => {
     this.setState({ things: event.target.value });
   };
 
   render() {
     return (
       <div>
-        <Input placeholder="Search for an item" onChange={this.handleInput} />
+        <Input
+          placeholder="Search for item"
+          type="search"
+          onChange={this.changeHandler}
+        />
         <h3>Results:</h3>
-        <div>{this.state.things}</div>
+        {this.state.things}
       </div>
     );
   }
