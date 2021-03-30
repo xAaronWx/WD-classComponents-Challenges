@@ -22,15 +22,14 @@ export default class SearchIndex extends Component {
         "protective sheets",
         "index cards",
       ],
+      filtered: "",
     };
   }
 
-  state = {
-    name: "",
-  };
-
-  changeHandler = (event) => {
-    this.setState({ things: event.target.value });
+  searchFunction = (event) => {
+    let search = this.state.filtered;
+    this.setState({ filtered: event.target.value });
+    console.log(search);
   };
 
   render() {
@@ -39,10 +38,16 @@ export default class SearchIndex extends Component {
         <Input
           placeholder="Search for item"
           type="search"
-          onChange={this.changeHandler}
+          onChange={(event) => this.searchFunction(event)}
         />
         <h3>Results:</h3>
-        {this.state.things}
+        <ul>
+          {this.state.things
+            .filter((item) => item.includes(this.state.filtered))
+            .map((results) => (
+              <li>{results}</li>
+            ))}
+        </ul>
       </div>
     );
   }
