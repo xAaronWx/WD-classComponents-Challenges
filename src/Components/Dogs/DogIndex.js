@@ -15,17 +15,18 @@ class DogIndex extends Component {
       .then((json) => this.setState({ dogImage: json.message }));
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.dogImage !== this.state.dogImage) {
-      this.fetchDog();
-    }
+  componentDidMount() {
+    this.fetchDog();
   }
 
   render() {
     return (
       <Container>
         <h3>Dog Image</h3>
-        <img src={this.dogImage} alt="" />
+        <img src={this.state.dogImage} alt="" />
+        <br />
+        <br />
+        <button onClick={() => this.fetchDog()}>Fetch a new dog</button>
       </Container>
     );
   }
