@@ -1,64 +1,55 @@
 import React, { Component } from "react";
-import { Input, Button, ListGroup, ListGroupItem } from "reactstrap";
-
-class ToDoIndex extends Component {
+import { Input, Button } from "reactstrap";
+import TodoItems from "./TodoItems";
+class TodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: ["go to store", "do dishes", "complete code"],
+      item: [],
     };
+
+    this.addItem = this.addItem.bind(this);
   }
 
-  componentDidMount() {
-    this.displayTasks();
-  }
+  addItem(e) {
+    if (this._inputElement.value !== "") {
+      var newItem = {
+        text: this._inputElement.value,
+        key: Date.now(),
+      };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.tasks !== prevState.tasks) {
-      this.displayTasks();
+      this.setState((prevState) => {
+        return {
+          items: prevState.items.concat(newItem),
+        };
+      });
+
+      this._inputElement.value = "";
     }
-  }
-
-  addTask = (e) => {
-    // Prevent button click from submitting form
+    console.log(this.state.items);
     e.preventDefault();
-    let list = this.state.tasks;
-    const newTask = document.getElementById("taskName");
-    // Create variables for our list, the item to add, and our form
-    list.push(newTask.value);
-    this.setState({ tasks: list });
-    console.log(this.state.tasks);
-  };
-
-  displayTasks = () => {
-    return this.state.tasks.map((tasks) => <ListGroupItem></ListGroupItem>);
-  };
+  }
 
   render() {
     return (
-      <div>
-        <h2>Create your tasks</h2>
-        <section className="section"></section>
-        <br />
-        <section className="section">
-          <form className="form" id="addItemForm">
+      <div className="todoListMain">
+        <div className="header">
+          <form onSubmit={this.addItem}>
             <Input
+              ref={(a) => (this._inputElement = a)}
               type="text"
-              className="input"
-              id="addInput"
-              placeholder="Create a task"
+              id=""
+              name=""
+              placeholder="Create Task"
             />
             <br />
             <br />
-            <Button className="button is-info" onClick={this.addItem}>
-              Add Task
-            </Button>
+            <Button type="submit">Add Task</Button>
           </form>
-          <ListGroup></ListGroup>
-        </section>
+        </div>
+        <TodoItems entries={this.state.items} />
       </div>
     );
   }
 }
-
-export default ToDoIndex;
+export default TodoList;
