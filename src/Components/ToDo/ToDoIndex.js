@@ -1,55 +1,64 @@
 import React, { Component } from "react";
-import { Input, Button } from "reactstrap";
-import TodoItems from "./TodoItems";
+import { Input, Button, Container, ListGroup, ListGroupItem } from "reactstrap";
+
 class TodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: [],
+      term: "",
+      tasks: [],
     };
-
-    this.addItem = this.addItem.bind(this);
   }
 
-  addItem(e) {
-    if (this._inputElement.value !== "") {
-      var newItem = {
-        text: this._inputElement.value,
-        key: Date.now(),
-      };
+  onChange = (event) => {
+    this.setState({ term: event.target.value });
+  };
 
-      this.setState((prevState) => {
-        return {
-          items: prevState.items.concat(newItem),
-        };
-      });
+  onSubmit = (event) => {
+    let taskArray = this.state.tasks;
+    taskArray.push(this.state.term);
+    this.setState({
+      term: "",
+      tasks: taskArray,
+    });
+  };
 
-      this._inputElement.value = "";
-    }
-    console.log(this.state.items);
-    e.preventDefault();
-  }
+  displayTasks = () => {
+    return this.state.tasks.map((task, index) => (
+      <ListGroup key={index}>
+        <Input
+          type="checkbox"
+          value={task}
+          onChange={this.onChange}
+          onClick={(e) => this.removeTask(e, index)}
+          placeholder=""
+        />
+        <ListGroupItem>{task}</ListGroupItem>
+      </ListGroup>
+    ));
+  };
+
+  removeTask = (event, index) => {
+    let list = this.state.tasks;
+    list.splice(index, 1);
+    this.setState({
+      tasks: list,
+    });
+  };
 
   render() {
     return (
-      <div className="todoListMain">
-        <div className="header">
-          <form onSubmit={this.addItem}>
-            <Input
-              ref={(a) => (this._inputElement = a)}
-              type="text"
-              id=""
-              name=""
-              placeholder="Create Task"
-            />
-            <br />
-            <br />
-            <Button type="submit">Add Task</Button>
-          </form>
+      <div>
+        <Input placeholder="Add Task" onChange={this.onChange} />
+        <br />
+        <br />
+        <Button onClick={(e) => this.onSubmit(e)}>Add</Button>
+        <div>
+          <Container>{this.displayTasks()}</Container>
         </div>
-        <TodoItems entries={this.state.items} />
       </div>
     );
   }
 }
+
 export default TodoList;

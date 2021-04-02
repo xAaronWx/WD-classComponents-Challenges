@@ -1,8 +1,6 @@
 import React from "react";
 import { Container } from "reactstrap";
-import TodoIndex2 from "./ToDoIndex2";
-// import TodoList from "./ToDoIndex";
-// import TodoItems from "./TodoItems";
+import TodoList from "./ToDoIndex";
 
 const ToDo = () => {
   return (
@@ -21,9 +19,7 @@ const ToDo = () => {
         </li>
       </ul>
       <hr />
-      <TodoIndex2 />
-      {/* <TodoList />
-      <TodoItems /> */}
+      <TodoList />
     </Container>
   );
 };

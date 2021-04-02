@@ -1,62 +1,55 @@
-import React, { Component } from "react";
-import { Input, Button } from "reactstrap";
+// import React, { Component } from "react";
+// import { Input, Button } from "reactstrap";
+// import TodoItems from "./TodoItems";
+// class TodoList extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       item: [],
+//     };
 
-class TodoIndex2 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: "",
-      tasks: [],
-    };
-  }
+//     this.addItem = this.addItem.bind(this);
+//   }
 
-  onChange = (event) => {
-    this.setState({ term: event.target.value });
-  };
+//   addItem(e) {
+//     if (this._inputElement.value !== "") {
+//       var newItem = {
+//         text: this._inputElement.value,
+//         key: Date.now(),
+//       };
 
-  onSubmit = (event) => {
-    let taskArray = this.state.tasks;
-    taskArray.push(this.state.term);
-    this.setState({
-      term: "",
-      tasks: taskArray,
-    });
-  };
+//       this.setState((prevState) => {
+//         return {
+//           items: prevState.items.concat(newItem),
+//         };
+//       });
 
-  displayTasks = () => {
-    return this.state.tasks.map((task, index) => (
-      <li key={index}>
-        <Input
-          type="checkbox"
-          value={task}
-          onChange={this.onChange}
-          onClick={(e) => this.removeTask(e, index)}
-          placeholder=""
-        />
-        {task}
-      </li>
-    ));
-  };
+//       this._inputElement.value = "";
+//     }
+//     console.log(this.state.items);
+//     e.preventDefault();
+//   }
 
-  removeTask = (event, index) => {
-    let list = this.state.tasks;
-    list.splice(index, 1);
-    this.setState({
-      tasks: list,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <Input placeholder="Add Task" onChange={this.onChange} />
-        <br />
-        <br />
-        <Button onClick={(e) => this.onSubmit(e)}>Add</Button>
-        <div>{this.displayTasks()}</div>
-      </div>
-    );
-  }
-}
-
-export default TodoIndex2;
+//   render() {
+//     return (
+//       <div className="todoListMain">
+//         <div className="header">
+//           <form onSubmit={this.addItem}>
+//             <Input
+//               ref={(a) => (this._inputElement = a)}
+//               type="text"
+//               id=""
+//               name=""
+//               placeholder="Create Task"
+//             />
+//             <br />
+//             <br />
+//             <Button type="submit">Add Task</Button>
+//           </form>
+//         </div>
+//         <TodoItems entries={this.state.items} />
+//       </div>
+//     );
+//   }
+// }
+// export default TodoList;
